@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.0-rc'
+}
+
+wrapper {
+    gradleVersion = '6.5.1'
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+group 'info.laht'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+
+    runtimeOnly 'org.jetbrains.kotlin:kotlin-script-runtime'
+    implementation 'org.jetbrains.kotlin:kotlin-script-util'
+    implementation 'org.jetbrains.kotlin:kotlin-compiler-embeddable'
+    implementation 'org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable'
+
+    implementation group: 'info.picocli', name: 'picocli', version: '4.5.0'
+
+}
