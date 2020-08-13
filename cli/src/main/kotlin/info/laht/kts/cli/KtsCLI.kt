@@ -1,6 +1,6 @@
 package info.laht.kts.cli
 
-import info.laht.kts.invoke
+import info.laht.kts.invokeKts
 import picocli.CommandLine
 import java.io.File
 
@@ -26,7 +26,7 @@ class KtsCLI: Runnable {
 
     override fun run() {
 
-        invoke(scriptFile)
+        invokeKts(scriptFile)
 
     }
 

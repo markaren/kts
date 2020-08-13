@@ -1,3 +1,5 @@
+@file:JvmName("KtsScriptRunner")
+
 package info.laht.kts
 
 import org.eclipse.aether.artifact.Artifact
@@ -62,12 +64,12 @@ internal fun parseDependencies(script: String): List<Artifact> {
 }
 
 @JvmOverloads
-fun invoke(scriptFile: File, timeOut: Long? = null): Any? {
-    return invoke(scriptFile.bufferedReader().use { it.readText() }, timeOut)
+fun invokeKts(scriptFile: File, timeOut: Long? = null): Any? {
+    return invokeKts(scriptFile.bufferedReader().use { it.readText() }, timeOut)
 }
 
 @JvmOverloads
-fun invoke(script: String, timeOut: Long? = null): Any? {
+fun invokeKts(script: String, timeOut: Long? = null): Any? {
 
     val artifacts = parseDependencies(script)
     val artifactResults = resolveDependencies(artifacts)
