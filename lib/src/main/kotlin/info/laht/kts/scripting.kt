@@ -1,6 +1,5 @@
 package info.laht.kts
 
-import info.laht.kts.maven.Maven
 import org.eclipse.aether.artifact.Artifact
 import org.eclipse.aether.artifact.DefaultArtifact
 import org.eclipse.aether.collection.CollectRequest

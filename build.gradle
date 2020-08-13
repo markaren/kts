@@ -1,7 +1,6 @@
 plugins {
-    id 'java'
-    id 'application'
-    id 'org.jetbrains.kotlin.jvm' version '1.4.0-rc'
+    id 'base'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.0-rc' apply(false)
 }
 
 wrapper {
@@ -9,48 +8,43 @@ wrapper {
     distributionType = Wrapper.DistributionType.ALL
 }
 
-group 'info.laht'
-version '1.0-SNAPSHOT'
+println "Gradle version is ${gradle.getGradleVersion()}"
 
-mainClassName = "info.laht.kts.cli.Kts"
+group 'info.laht.kts'
+version '0.1.0'
 
-repositories {
-    mavenCentral()
-}
+subprojects {
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    apply plugin: "java"
+    apply plugin: "kotlin"
 
-    runtimeOnly 'org.jetbrains.kotlin:kotlin-script-runtime'
-    implementation 'org.jetbrains.kotlin:kotlin-script-util'
-    implementation 'org.jetbrains.kotlin:kotlin-compiler-embeddable'
-    implementation 'org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable'
+    group = rootProject.group
+    version = rootProject.version
 
-    implementation group: 'info.picocli', name: 'picocli', version: '4.5.0'
+    repositories {
+        mavenCentral()
+    }
 
-    def maven_version = "3.5.0"
-    implementation group: 'org.apache.maven', name: 'maven-resolver-provider', version: maven_version
+    dependencies {
+        def slf4j_version = '1.7.25'
+        implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
+        runtimeOnly group: 'org.slf4j', name: 'slf4j-log4j12', version: slf4j_version
 
-    def maven_resolver_version = "1.4.2"
-    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-api', version: maven_resolver_version
-    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-impl', version: maven_resolver_version
-    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-util', version: maven_resolver_version
-    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-transport-http', version: maven_resolver_version
-    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-transport-file', version: maven_resolver_version
-    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-connector-basic', version: maven_resolver_version
+        def junit_version = '5.3.2'
+        testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:$junit_version")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_version")
+    }
 
-    def slf4j_version = '1.7.25'
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
-    runtimeOnly group: 'org.slf4j', name: 'slf4j-log4j12', version: slf4j_version
+    test {
+        failFast = true
+        useJUnitPlatform()
+    }
 
-    def junit_version = '5.3.2'
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:$junit_version")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_version")
+    pluginManager.withPlugin('kotlin') {
+        dependencies {
+            implementation "org.jetbrains.kotlin:kotlin-stdlib"
+        }
+    }
 
-}
-
-test {
-    failFast = true
-    useJUnitPlatform()
 }

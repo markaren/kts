@@ -1,0 +1,12 @@
+plugins {
+    id "application"
+}
+
+mainClassName = "info.laht.kts.cli.Kts"
+
+dependencies {
+    implementation project(":lib")
+
+    implementation group: 'info.picocli', name: 'picocli', version: '4.5.0'
+
+}

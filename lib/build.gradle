@@ -1,0 +1,19 @@
+
+dependencies {
+    runtimeOnly 'org.jetbrains.kotlin:kotlin-script-runtime'
+    implementation 'org.jetbrains.kotlin:kotlin-script-util'
+    implementation 'org.jetbrains.kotlin:kotlin-compiler-embeddable'
+    implementation 'org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable'
+
+    def maven_version = "3.5.0"
+    implementation group: 'org.apache.maven', name: 'maven-resolver-provider', version: maven_version
+
+    def maven_resolver_version = "1.4.2"
+    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-api', version: maven_resolver_version
+    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-impl', version: maven_resolver_version
+    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-util', version: maven_resolver_version
+    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-transport-http', version: maven_resolver_version
+    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-transport-file', version: maven_resolver_version
+    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-connector-basic', version: maven_resolver_version
+
+}

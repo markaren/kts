@@ -1,9 +1,8 @@
-package info.laht.kts.maven
+package info.laht.kts
 
 import org.apache.maven.repository.internal.MavenRepositorySystemUtils
 import org.eclipse.aether.DefaultRepositorySystemSession
 import org.eclipse.aether.RepositorySystem
-import org.eclipse.aether.RepositorySystemSession
 import org.eclipse.aether.connector.basic.BasicRepositoryConnectorFactory
 import org.eclipse.aether.impl.DefaultServiceLocator
 import org.eclipse.aether.repository.LocalRepository
@@ -15,7 +14,6 @@ import org.eclipse.aether.transport.http.HttpTransporterFactory
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
-import java.util.*
 
 object Maven {
 
@@ -51,8 +49,6 @@ object Maven {
         val session = MavenRepositorySystemUtils.newSession()
         val localRepo = LocalRepository(m2)
         session.localRepositoryManager = system.newLocalRepositoryManager(session, localRepo)
-        session.transferListener = ConsoleTransferListener()
-        session.repositoryListener = ConsoleRepositoryListener()
 
         // uncomment to generate dirty trees
         // session.setDependencyGraphTransformer( null );
