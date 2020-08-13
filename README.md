@@ -17,3 +17,7 @@ import com.google.gson.Gson
 println(Gson())
 
 ```
+
+### Building
+
+The Command Line Application `kts` can be built by invoking `./gradlew installDist`
