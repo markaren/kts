@@ -19,8 +19,8 @@ internal class DependencyTest {
     @Disabled
     fun test() {
 
-        val system = Maven.newRepositorySystem()
-        val session = Maven.newRepositorySystemSession(system)
+        val system = KtsMavenHandler.newRepositorySystem()
+        val session = KtsMavenHandler.newRepositorySystemSession(system)
 
         val artifact: Artifact = DefaultArtifact("no.ntnu.ihb.sspgen:dsl:0.1.3")
 
@@ -28,7 +28,7 @@ internal class DependencyTest {
 
         val collectRequest = CollectRequest()
         collectRequest.root = Dependency(artifact, JavaScopes.COMPILE)
-        collectRequest.repositories = Maven.newRepositories()
+        collectRequest.repositories = KtsMavenHandler.defaultRepositories()
 
         val dependencyRequest = DependencyRequest(collectRequest, classpathFilter)
 

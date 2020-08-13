@@ -15,9 +15,9 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 
-object Maven {
+object KtsMavenHandler {
 
-    private val LOG: Logger = LoggerFactory.getLogger(Maven::class.java)
+    private val LOG: Logger = LoggerFactory.getLogger(KtsMavenHandler::class.java)
 
     fun newRepositorySystem(): RepositorySystem {
         val locator: DefaultServiceLocator = MavenRepositorySystemUtils.newServiceLocator()
@@ -27,8 +27,8 @@ object Maven {
         locator.setErrorHandler(object : DefaultServiceLocator.ErrorHandler() {
             override fun serviceCreationFailed(type: Class<*>?, impl: Class<*>?, exception: Throwable) {
                 LOG.error(
-                    "Service creation failed for {} with implementation {}",
-                    type, impl, exception
+                        "Service creation failed for {} with implementation {}",
+                        type, impl, exception
                 )
             }
         })
@@ -55,15 +55,10 @@ object Maven {
         return session
     }
 
-    fun newRepositories(): List<RemoteRepository> {
+    fun defaultRepositories(): List<RemoteRepository> {
         return listOf(
-                newCentralRepository(),
-                newNtnuRepository()
+                newCentralRepository()
         )
-    }
-
-    private fun newNtnuRepository(): RemoteRepository {
-        return RemoteRepository.Builder("ntnu", "default", "https://dl.bintray.com/ntnu-ihb/mvn").build()
     }
 
     private fun newCentralRepository(): RemoteRepository {

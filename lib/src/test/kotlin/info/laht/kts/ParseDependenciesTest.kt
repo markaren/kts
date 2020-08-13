@@ -10,11 +10,11 @@ internal class ParseDependenciesTest {
 
         val script = """
             
-            //using maven("com.google.code.gson:gson:2.8.6")
+            //using artifact("com.google.code.gson:gson:2.8.6")
             
         """.trimIndent()
 
-        val deps = parseDependencies(script)
+        val deps = KtsUtil.parseDependencies(script)
 
         Assertions.assertEquals(1, deps.size)
         Assertions.assertEquals("2.8.6", deps.first().version)
