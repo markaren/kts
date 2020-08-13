@@ -48,6 +48,9 @@ internal fun parseDependencies(script: String): List<Artifact> {
     val artifacts = mutableListOf<Artifact>()
     val lines = script.split("\n")
     for (line in lines) {
+        if (line.startsWith("import")) {
+            break
+        }
         if (line.startsWith("//using maven")) {
             val i1 = line.indexOf("(\"") + 2
             val i2 = line.indexOf("\")")
