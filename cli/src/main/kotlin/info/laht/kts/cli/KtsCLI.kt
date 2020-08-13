@@ -1,6 +1,7 @@
 package info.laht.kts.cli
 
 import info.laht.kts.invokeKts
+import info.laht.kts.kts
 import picocli.CommandLine
 import java.io.File
 
@@ -39,5 +40,12 @@ class KtsCLI: Runnable {
 
    }
 
+}
+
+class VersionProvider : CommandLine.IVersionProvider {
+
+    override fun getVersion(): Array<String> {
+        return arrayOf(kts.version)
+    }
 }
 
