@@ -10,8 +10,9 @@ wrapper {
 
 println "Gradle version is ${gradle.getGradleVersion()}"
 
-group 'info.laht.kts'
-version '0.1.0'
+group = 'info.laht.kts'
+version = rootProject.file("VERSION").readLines()[0]
+println("Building ${project.name} v$version")
 
 subprojects {
 

@@ -1,8 +1,19 @@
 plugins {
     id "application"
+    id "distribution"
 }
 
-mainClassName = "info.laht.kts.cli.Kts"
+mainClassName = "info.laht.kts.cli.KtsCLI"
+
+distributions {
+    main {
+        baseName('kts')
+    }
+}
+
+startScripts {
+    applicationName = 'kts'
+}
 
 dependencies {
     implementation project(":lib")

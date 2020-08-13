@@ -4,7 +4,8 @@ import info.laht.kts.invoke
 import picocli.CommandLine
 import java.io.File
 
-class Kts: Runnable {
+@CommandLine.Command(versionProvider = VersionProvider::class)
+class KtsCLI: Runnable {
 
     @CommandLine.Parameters(
         arity = "1",
@@ -16,6 +17,13 @@ class Kts: Runnable {
     @CommandLine.Option(names = ["-h", "--help"], usageHelp = true, description = ["Display a help message"])
     private var helpRequested: Boolean = false
 
+    @CommandLine.Option(
+    names = ["-v", "--version"],
+    versionHelp = true,
+    description = ["Print the version of this application."]
+    )
+    private var showVersion = false
+
     override fun run() {
 
         invoke(scriptFile)
@@ -26,7 +34,7 @@ class Kts: Runnable {
 
        @JvmStatic
        fun main(args: Array<out String>) {
-           CommandLine(Kts()).execute(*args)
+           CommandLine(KtsCLI()).execute(*args)
        }
 
    }

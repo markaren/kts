@@ -17,3 +17,27 @@ dependencies {
     implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-connector-basic', version: maven_resolver_version
 
 }
+
+def generatedSourceDir = new File(buildDir, "generated/src/main/kotlin")
+sourceSets.main.kotlin.srcDirs += generatedSourceDir.absolutePath
+
+task injectVersion() {
+    doLast {
+        def packageFolder = project.group.replace(".", "/")
+        def versionFile = new File(generatedSourceDir, "$packageFolder/version.kt")
+        if (!versionFile.parentFile.exists()) {
+            versionFile.parentFile.mkdirs()
+            versionFile.createNewFile()
+        }
+        versionFile.write(
+                "package ${project.group}\n\n" +
+                        "object kts {\n\n" +
+                        "   @JvmField\n" +
+                        "   val version = \"${project.version}\"\n\n" +
+                        "}\n"
+        )
+
+    }
+}
+
+compileKotlin.dependsOn injectVersion
