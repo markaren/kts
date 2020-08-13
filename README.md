@@ -18,6 +18,8 @@ println(Gson())
 
 ```
 
+Alternativly, invoke `./kts example.kts`
+
 ### Building
 
 The Command Line Application `kts` can be built by invoking `./gradlew installDist`
