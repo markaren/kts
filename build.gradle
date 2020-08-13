@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
     id 'org.jetbrains.kotlin.jvm' version '1.4.0-rc'
 }
 
@@ -10,6 +11,8 @@ wrapper {
 
 group 'info.laht'
 version '1.0-SNAPSHOT'
+
+mainClassName = "info.laht.kts.cli.Kts"
 
 repositories {
     mavenCentral()
