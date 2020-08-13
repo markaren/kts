@@ -1,7 +1,7 @@
 # kts
 Kotlin script runner.
 
-Enables Kotlin scripts to be invoked with external maven dependencies and no prior sofware requirements (except for a JRE).
+Enables Kotlin scripts to be invoked with external maven dependencies and no prior software requirements (except for a JRE).
 
 ### Example
 
