@@ -25,7 +25,20 @@ dependencies {
 
     implementation group: 'info.picocli', name: 'picocli', version: '4.5.0'
 
-    //implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-api', version: '1.4.2'
+    def maven_version = "3.5.0"
+    implementation group: 'org.apache.maven', name: 'maven-resolver-provider', version: maven_version
+
+    def maven_resolver_version = "1.4.2"
+    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-api', version: maven_resolver_version
+    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-impl', version: maven_resolver_version
+    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-util', version: maven_resolver_version
+    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-transport-http', version: maven_resolver_version
+    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-transport-file', version: maven_resolver_version
+    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-connector-basic', version: maven_resolver_version
+
+    def slf4j_version = '1.7.25'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
+    runtimeOnly group: 'org.slf4j', name: 'slf4j-log4j12', version: slf4j_version
 
     def junit_version = '5.3.2'
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
