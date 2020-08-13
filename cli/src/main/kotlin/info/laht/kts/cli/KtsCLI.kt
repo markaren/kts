@@ -27,7 +27,7 @@ class KtsCLI: Runnable {
 
     override fun run() {
 
-        invokeKts(scriptFile)
+        println(invokeKts(scriptFile))
 
     }
 
