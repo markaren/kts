@@ -5,7 +5,7 @@ Enables Kotlin scripts to be invoked with external maven dependencies.
 
 ### Example
 
-The following script can be invoked by invoking directly in a shell.
+The following script named `example.kts` can be invoked by directly invoking `./example.kts` in a shell.
 
 ```kotlin
 #!kts
