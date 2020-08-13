@@ -61,11 +61,13 @@ internal fun parseDependencies(script: String): List<Artifact> {
     return artifacts
 }
 
-fun invoke(scriptFile: File): Any? {
-    return invoke(scriptFile.bufferedReader().use { it.readText() })
+@JvmOverloads
+fun invoke(scriptFile: File, timeOut: Long? = null): Any? {
+    return invoke(scriptFile.bufferedReader().use { it.readText() }, timeOut)
 }
 
-fun invoke(script: String): Any? {
+@JvmOverloads
+fun invoke(script: String, timeOut: Long? = null): Any? {
 
     val artifacts = parseDependencies(script)
     val artifactResults = resolveDependencies(artifacts)
@@ -77,13 +79,27 @@ fun invoke(script: String): Any? {
     )
 
     System.setProperty("idea.io.use.nio2", "true")
-    Thread.currentThread().contextClassLoader = classLoader
-    val scriptEngine = ScriptEngineManager().getEngineByExtension("kts")
-    return try {
-        scriptEngine.eval(script)
-    } catch (ex: Exception) {
-        ex.printStackTrace()
-        null
+
+    var result: Any? = null
+
+    val thread = Thread {
+        Thread.currentThread().contextClassLoader = classLoader
+        val scriptEngine = ScriptEngineManager().getEngineByExtension("kts")
+        try {
+            result = scriptEngine.eval(script)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
     }
+
+    thread.start()
+
+    if (timeOut == null) {
+        thread.join()
+    } else {
+        thread.join(timeOut)
+    }
+
+    return result
 
 }
