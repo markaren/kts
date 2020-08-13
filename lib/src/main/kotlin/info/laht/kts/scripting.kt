@@ -61,8 +61,8 @@ internal fun parseDependencies(script: String): List<Artifact> {
     return artifacts
 }
 
-fun invoke(scriptFile: File) {
-    invoke(scriptFile.bufferedReader().use { it.readText() })
+fun invoke(scriptFile: File): Any? {
+    return invoke(scriptFile.bufferedReader().use { it.readText() })
 }
 
 fun invoke(script: String): Any? {
