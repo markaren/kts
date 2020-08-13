@@ -8,6 +8,7 @@ import org.eclipse.aether.resolution.ArtifactResult
 import org.eclipse.aether.resolution.DependencyRequest
 import org.eclipse.aether.util.artifact.JavaScopes
 import org.eclipse.aether.util.filter.DependencyFilterUtils
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 //https://stackoverflow.com/questions/40813062/maven-get-all-dependencies-programmatically
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test
 internal class DependencyTest {
 
     @Test
+    @Disabled
     fun test() {
 
         val system = Maven.newRepositorySystem()
