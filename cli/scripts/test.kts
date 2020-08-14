@@ -1,3 +1,3 @@
-#!build/kts
+#!../build/kts
 
 println("OK")

@@ -22,19 +22,16 @@ tasks {
   val installDist by getting(Sync::class)
   val shadowJar by getting(com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar::class)
   create("executableJar", Exec::class) {
-//    enabled = !org.gradle.internal.os.OperatingSystem.current().isWindows
     dependsOn(shadowJar)
     group = "distribution"
     workingDir = buildDir
-    val wrapperFile = project.projectDir.resolve("exeWrapper.sh").relativeTo(workingDir).invariantSeparatorsPath
-    val jarFile = shadowJar.archiveFile.get().asFile.relativeTo(workingDir).invariantSeparatorsPath
-    val outFile = buildDir.resolve("kts").relativeTo(workingDir).invariantSeparatorsPath
+    val buildFile = project.projectDir.resolve("scripts/buildExeJar.sh").relativeTo(workingDir)
+    val wrapperFile = project.projectDir.resolve("scripts/exeWrapper.sh").relativeTo(workingDir)
+    val jarFile = shadowJar.archiveFile.get().asFile.relativeTo(workingDir)
+    val outFile = buildDir.resolve("kts").relativeTo(workingDir)
     executable = "bash"
-    args(
-      "-c",
-      "'cat $wrapperFile $jarFile > $outFile && chmod +x $outFile'"
-    )
-    inputs.files(shadowJar.outputs)
+    args(buildFile, wrapperFile, jarFile, outFile)
+    inputs.files(buildFile, wrapperFile, jarFile)
     outputs.file(outFile)
   }
   withType<CreateStartScripts> {
