@@ -1,3 +1,0 @@
-#!../build/kts
-
-println("OK")
