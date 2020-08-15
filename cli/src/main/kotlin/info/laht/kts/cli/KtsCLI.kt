@@ -27,7 +27,9 @@ class KtsCLI: Runnable {
 
     override fun run() {
 
-        println(KtsScriptRunner.invokeKts(scriptFile))
+        KtsScriptRunner.invokeKts(scriptFile)?.also { result ->
+            println(result) // print non-null invocation results
+        }
 
     }
 
