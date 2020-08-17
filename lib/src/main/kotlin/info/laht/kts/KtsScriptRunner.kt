@@ -2,7 +2,6 @@ package info.laht.kts
 
 import java.io.File
 import java.net.URLClassLoader
-import javax.script.ScriptEngineManager
 
 object KtsScriptRunner {
 
@@ -29,11 +28,14 @@ object KtsScriptRunner {
                 }.toTypedArray()
         )
 
+        val classPath = artifactResults.map { artifactResult ->
+            artifactResult.artifact.file
+        }
+
         var result: Any? = null
 
         val thread = Thread {
-            Thread.currentThread().contextClassLoader = classLoader
-            val scriptEngine = ScriptEngineManager().getEngineByExtension("kts")
+            val scriptEngine = KtsScriptEngineFactory(classPath).scriptEngine
             try {
                 result = scriptEngine.eval(script)
             } catch (ex: Exception) {
