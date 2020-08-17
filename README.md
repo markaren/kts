@@ -33,3 +33,8 @@ Custom repositories may be added like so:
 ### Building
 
 The Command Line Application `kts` can be built by invoking `./gradlew installDist`
+
+##### Contributors
+
+[markaren](https://github.com/markaren)
+[mpetuska](https://github.com/mpetuska)
