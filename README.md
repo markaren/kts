@@ -36,5 +36,5 @@ The Command Line Application `kts` can be built by invoking `./gradlew installDi
 
 ##### Contributors
 
-[markaren](https://github.com/markaren)
-[mpetuska](https://github.com/mpetuska)
+* [markaren](https://github.com/markaren)
+* [mpetuska](https://github.com/mpetuska)
