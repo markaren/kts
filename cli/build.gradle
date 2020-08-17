@@ -1,6 +1,7 @@
 plugins {
     id "application"
     id "distribution"
+    id("org.springframework.boot") version "2.3.3.RELEASE"
 }
 
 mainClassName = "info.laht.kts.cli.KtsCLI"
@@ -15,7 +16,43 @@ startScripts {
     applicationName = 'kts'
 }
 
+springBoot {
+    buildInfo()
+}
+
 dependencies {
     implementation project(":lib")
     implementation group: 'info.picocli', name: 'picocli', version: '4.5.0'
 }
+
+bootJar {
+    archiveClassifier.set("boot")
+    launchScript {
+        script = project.file("scripts/exeWrapper.sh")
+    }
+    layered()
+    requiresUnpack("**/kotlin-script-runtime-*.jar")
+    requiresUnpack("**/kotlin-stdlib-*.jar")
+    requiresUnpack("**/kotlin-compiler-embeddable-*.jar")
+    requiresUnpack("**/kotlin-script-util-*.jar")
+    requiresUnpack("**/kotlin-scripting-compiler-embeddable-*.jar")
+}
+
+
+task executableBootJar(type: Copy) {
+
+    from bootJar.archiveFile
+    def outDir = new File(buildDir, "executable/boot")
+    into outDir
+
+    rename {
+        "kts"
+    }
+
+    inputs.file(bootJar.archiveFile)
+    outputs.dir(outDir)
+
+    dependsOn bootJar
+    group = "executable"
+}
+
