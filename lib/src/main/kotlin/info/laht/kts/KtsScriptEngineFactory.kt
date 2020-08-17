@@ -10,7 +10,7 @@ import kotlin.script.experimental.jvm.util.*
 /**
  * @see "https://stackoverflow.com/a/44796842"
  */
-class KtsScriptEngineFactory(private val classpath: List<File>) : KotlinJsr223JvmScriptEngineFactoryBase() {
+internal class KtsScriptEngineFactory(private val classpath: List<File>) : KotlinJsr223JvmScriptEngineFactoryBase() {
     override fun getScriptEngine(): ScriptEngine {
         val urlCL = URLClassLoader(arrayOf(), this::class.java.classLoader)
         return KotlinJsr223JvmLocalScriptEngine(

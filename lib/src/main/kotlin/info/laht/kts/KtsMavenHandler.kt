@@ -15,7 +15,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 
-object KtsMavenHandler {
+internal object KtsMavenHandler {
 
     private val LOG: Logger = LoggerFactory.getLogger(KtsMavenHandler::class.java)
 

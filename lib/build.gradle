@@ -21,6 +21,10 @@ dependencies {
 
 }
 
+kotlin {
+    explicitApi()
+}
+
 def generatedSourceDir = new File(buildDir, "generated/src/main/kotlin")
 sourceSets.main.kotlin.srcDirs += generatedSourceDir.absolutePath
 
@@ -34,9 +38,9 @@ task injectVersion() {
         }
         versionFile.write(
                 "package ${project.group}\n\n" +
-                        "object kts {\n\n" +
+                        "public object kts {\n\n" +
                         "   @JvmField\n" +
-                        "   val version = \"${project.version}\"\n\n" +
+                        "   public val version: String = \"${project.version}\"\n\n" +
                         "}\n"
         )
 

@@ -12,7 +12,7 @@ import org.eclipse.aether.util.filter.DependencyFilterUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-object KtsUtil {
+internal object KtsUtil {
 
     private val LOG: Logger = LoggerFactory.getLogger(KtsUtil::class.java)
 

@@ -3,19 +3,19 @@ package info.laht.kts
 import java.io.File
 import java.net.URLClassLoader
 
-object KtsScriptRunner {
+public object KtsScriptRunner {
 
     init {
         System.setProperty("idea.io.use.nio2", "true")
     }
 
     @JvmOverloads
-    fun invokeKts(scriptFile: File, timeOut: Long? = null): Any? {
+    public fun invokeKts(scriptFile: File, timeOut: Long? = null): Any? {
         return invokeKts(scriptFile.bufferedReader().use { it.readText() }, timeOut)
     }
 
     @JvmOverloads
-    fun invokeKts(script: String, timeOut: Long? = null): Any? {
+    public fun invokeKts(script: String, timeOut: Long? = null): Any? {
 
         val repositories = KtsUtil.parseRepositories(script)
 
