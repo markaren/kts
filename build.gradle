@@ -1,10 +1,10 @@
 plugins {
     id 'base'
-    id 'org.jetbrains.kotlin.jvm' version '1.4.0-rc' apply(false)
+    id 'org.jetbrains.kotlin.jvm' version '1.4.0' apply(false)
 }
 
 wrapper {
-    gradleVersion = '6.5.1'
+    gradleVersion = '6.6'
     distributionType = Wrapper.DistributionType.ALL
 }
 
@@ -27,6 +27,9 @@ subprojects {
     }
 
     dependencies {
+
+        implementation "org.jetbrains.kotlin:kotlin-stdlib"
+
         def slf4j_version = '1.7.25'
         implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
         runtimeOnly group: 'org.slf4j', name: 'slf4j-log4j12', version: slf4j_version
@@ -40,12 +43,6 @@ subprojects {
     test {
         failFast = true
         useJUnitPlatform()
-    }
-
-    pluginManager.withPlugin('kotlin') {
-        dependencies {
-            implementation "org.jetbrains.kotlin:kotlin-stdlib"
-        }
     }
 
 }

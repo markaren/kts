@@ -1,3 +1,6 @@
+plugins {
+    id 'java-library'
+}
 
 dependencies {
     runtimeOnly 'org.jetbrains.kotlin:kotlin-script-runtime'
