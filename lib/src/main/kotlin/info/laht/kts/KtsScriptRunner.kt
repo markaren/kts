@@ -12,6 +12,9 @@ public object KtsScriptRunner {
 
     @JvmOverloads
     public fun invokeKts(scriptFile: File, timeOut: Long? = null): Any? {
+        require (scriptFile.exists()) {
+            "No such file: ${scriptFile.absolutePath}"
+        }
         return invokeKts(scriptFile.bufferedReader().use { it.readText() }, timeOut)
     }
 
