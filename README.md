@@ -2,9 +2,6 @@
 Kotlin script runner.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/markaren/kts/issues) 
-
-[ ![Download](https://api.bintray.com/packages/laht/mvn/kts/images/download.svg?version=0.2.1) ](https://bintray.com/laht/mvn/kts/0.2.1/link)
 
 Enables Kotlin scripts to be invoked with external maven dependencies and no prior software requirements (except for a JRE).
 
@@ -43,3 +40,10 @@ The Command Line Application `kts` can be built by invoking `./gradlew installDi
 
 * [markaren](https://github.com/markaren)
 * [mpetuska](https://github.com/mpetuska)
+
+
+
+# NOTE
+
+Just use kotlin-main-kts >= 1.4.0 instead of this. It provides autocompletion in IntelliJ and script caching. Adding `kotlin` from the Kotlin compiler distribution is just as easy as downloading `kts`. 
+
