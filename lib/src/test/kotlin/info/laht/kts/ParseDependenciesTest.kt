@@ -14,7 +14,7 @@ internal class ParseDependenciesTest {
             
         """.trimIndent()
 
-        val deps = KtsScriptUtil.parseDependencies(script).map { it.artifact }
+        val deps = KtsScriptUtil.parseDependencies(script)
 
         Assertions.assertEquals(1, deps.size)
         Assertions.assertEquals("2.8.6", deps.first().version)

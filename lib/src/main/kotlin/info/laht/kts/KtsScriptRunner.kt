@@ -1,6 +1,8 @@
 package info.laht.kts
 
+import org.jetbrains.kotlin.com.intellij.util.lang.UrlClassLoader
 import java.io.File
+import java.net.URLClassLoader
 
 public object KtsScriptRunner {
 
@@ -20,20 +22,22 @@ public object KtsScriptRunner {
 
         val artifacts = KtsScriptUtil.parseDependencies(script)
         val artifactResults = KtsScriptUtil.resolveDependencies(
-            repositories.map { it.repository },
-            artifacts.map { it.artifact }
+            repositories, artifacts
         )
 
         val classPath = artifactResults.map { artifactResult ->
             artifactResult.artifact.file
         }
 
-        val cleanedScript = KtsScriptUtil.removeLinesScript(
-            script, repositories.map { it.lineNumber } + artifacts.map { it.lineNumber }
-        )
+        val cleanedScript = KtsScriptUtil.cleanScript(script)
 
         var result: Any? = null
         val thread = Thread {
+            Thread.currentThread().contextClassLoader = URLClassLoader(
+                classPath.map { cl ->
+                    cl.toURI().toURL()
+                }.toTypedArray()
+            )
             val scriptEngine = KtsScriptEngineFactory(classPath).scriptEngine
             try {
                 result = scriptEngine.eval(cleanedScript)

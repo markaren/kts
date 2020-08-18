@@ -16,7 +16,12 @@ internal object KtsScriptUtil {
 
     private val LOG: Logger = LoggerFactory.getLogger(KtsScriptUtil::class.java)
 
-    internal fun removeLinesScript(script: String, lines: List<Int>): String {
+    internal fun cleanScript(script: String): String {
+
+        val lines = script.split("\n").mapIndexedNotNull { index, line ->
+            if (line.startsWith("@file:")) index else null
+        }
+
         val scriptLines = script.split("\n").toMutableList()
         for ((index, lineNumber) in lines.withIndex()) {
             scriptLines.removeAt(lineNumber-index)
@@ -29,11 +34,11 @@ internal object KtsScriptUtil {
         val system = KtsMavenHandler.newRepositorySystem()
         val session = KtsMavenHandler.newRepositorySystemSession(system)
 
-        val classpathFilter = DependencyFilterUtils.classpathFilter(JavaScopes.COMPILE)
+        val classpathFilter = DependencyFilterUtils.classpathFilter(JavaScopes.RUNTIME)
 
         return deps.flatMap { artifact ->
             val collectRequest = CollectRequest()
-            collectRequest.root = Dependency(artifact, JavaScopes.COMPILE)
+            collectRequest.root = Dependency(artifact, JavaScopes.RUNTIME)
             collectRequest.repositories = KtsMavenHandler.defaultRepositories() + repositories
 
             val dependencyRequest = DependencyRequest(collectRequest, classpathFilter)
@@ -51,10 +56,10 @@ internal object KtsScriptUtil {
         }
     }
 
-    internal fun parseDependencies(script: String): List<ParsedArtifact> {
-        val artifacts = mutableListOf<ParsedArtifact>()
+    internal fun parseDependencies(script: String): List<Artifact> {
+        val artifacts = mutableListOf<Artifact>()
         val lines = script.split("\n")
-        for ((index, line) in lines.withIndex()) {
+        for (line in lines) {
             if (line.startsWith("import")) {
                 break
             }
@@ -62,17 +67,17 @@ internal object KtsScriptUtil {
                 val i1 = line.indexOf("(\"") + 2
                 val i2 = line.indexOf("\")")
                 val artifact = DefaultArtifact(line.substring(i1, i2))
-                artifacts.add(ParsedArtifact(index, artifact))
+                artifacts.add(artifact)
             }
         }
 
         return artifacts
     }
 
-    internal fun parseRepositories(script: String): List<ParsedRepository> {
-        val repositories = mutableListOf<ParsedRepository>()
+    internal fun parseRepositories(script: String): List<RemoteRepository> {
+        val repositories = mutableListOf<RemoteRepository>()
         val lines = script.split("\n")
-        for ((index, line) in lines.withIndex()) {
+        for (line in lines) {
             if (line.startsWith("import")) {
                 break
             }
@@ -81,7 +86,7 @@ internal object KtsScriptUtil {
                 val i2 = line.indexOf("\")")
                 val repo = line.substring(i1, i2)
                 val repository = RemoteRepository.Builder(repo, "default", repo).build()
-                repositories.add(ParsedRepository(index, repository))
+                repositories.add(repository)
             }
         }
 
@@ -89,13 +94,3 @@ internal object KtsScriptUtil {
     }
 
 }
-
-internal data class ParsedRepository(
-    val lineNumber: Int,
-    val repository: RemoteRepository
-)
-
-internal data class ParsedArtifact(
-    val lineNumber: Int,
-    val artifact: Artifact
-)
