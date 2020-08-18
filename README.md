@@ -4,7 +4,7 @@ Kotlin script runner.
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/markaren/kts/issues) 
 
-[ ![Download](https://api.bintray.com/packages/laht/mvn/kts/images/download.svg?version=0.2.1) ](https://bintray.com/laht/mvn/kts/0.2.1/link)
+[ ![Download](https://api.bintray.com/packages/laht/mvn/kts/images/download.svg) ](https://bintray.com/laht/mvn/kts/_latestVersion)
 
 Enables Kotlin scripts to be invoked with external maven dependencies and no prior software requirements (except for a JRE).
 
