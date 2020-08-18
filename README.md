@@ -45,5 +45,6 @@ The Command Line Application `kts` can be built by invoking `./gradlew installDi
 
 # NOTE
 
-Just use kotlin-main-kts >= 1.4.0 instead of this. It provides autocompletion in IntelliJ and script caching. Adding `kotlin` from the Kotlin compiler distribution is just as easy as downloading `kts`. 
+You might want to use kotlin-main-kts >= 1.4.0 instead of this if you don't need transitive dependencies. 
+It provides autocompletion in IntelliJ and script caching. Adding `kotlin` from the Kotlin compiler distribution is just as easy as downloading `kts`. 
 
