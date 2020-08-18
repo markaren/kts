@@ -10,11 +10,11 @@ internal class ParseDependenciesTest {
 
         val script = """
             
-            //using artifact("com.google.code.gson:gson:2.8.6")
+            @file:DependsOn("com.google.code.gson:gson:2.8.6")
             
         """.trimIndent()
 
-        val deps = KtsUtil.parseDependencies(script)
+        val deps = KtsScriptUtil.parseDependencies(script).map { it.artifact }
 
         Assertions.assertEquals(1, deps.size)
         Assertions.assertEquals("2.8.6", deps.first().version)

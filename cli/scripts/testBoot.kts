@@ -1,6 +1,6 @@
 #!../build/executable/boot/kts
 
-//using artifact("com.google.code.gson:gson:2.8.6")
+@file:DependsOn("com.google.code.gson:gson:2.8.6")
 
 import com.google.gson.Gson
 

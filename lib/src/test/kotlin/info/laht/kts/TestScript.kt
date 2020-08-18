@@ -10,10 +10,10 @@ internal class TestScript {
 
         val script = """
             
-            //using repository("https://dl.bintray.com/ntnu-ihb/mvn")
+            @file:Repository("https://dl.bintray.com/ntnu-ihb/mvn")
             
-            //using artifact("com.google.code.gson:gson:2.8.6")
-            //using artifact("no.ntnu.ihb.sspgen:dsl:0.1.3")
+            @file:DependsOn("com.google.code.gson:gson:2.8.6")
+            @file:DependsOn("no.ntnu.ihb.sspgen:dsl:0.1.3")
             
             import java.util.List
             import com.google.gson.Gson

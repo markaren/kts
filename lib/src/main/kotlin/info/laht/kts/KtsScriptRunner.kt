@@ -1,7 +1,6 @@
 package info.laht.kts
 
 import java.io.File
-import java.net.URLClassLoader
 
 public object KtsScriptRunner {
 
@@ -17,27 +16,27 @@ public object KtsScriptRunner {
     @JvmOverloads
     public fun invokeKts(script: String, timeOut: Long? = null): Any? {
 
-        val repositories = KtsUtil.parseRepositories(script)
+        val repositories = KtsScriptUtil.parseRepositories(script)
 
-        val artifacts = KtsUtil.parseDependencies(script)
-        val artifactResults = KtsUtil.resolveDependencies(artifacts, repositories)
-
-        val classLoader = URLClassLoader(
-                artifactResults.map { artifactResult ->
-                    artifactResult.artifact.file!!.toURI().toURL()
-                }.toTypedArray()
+        val artifacts = KtsScriptUtil.parseDependencies(script)
+        val artifactResults = KtsScriptUtil.resolveDependencies(
+            repositories.map { it.repository },
+            artifacts.map { it.artifact }
         )
 
         val classPath = artifactResults.map { artifactResult ->
             artifactResult.artifact.file
         }
 
-        var result: Any? = null
+        val cleanedScript = KtsScriptUtil.removeLinesScript(
+            script, repositories.map { it.lineNumber } + artifacts.map { it.lineNumber }
+        )
 
+        var result: Any? = null
         val thread = Thread {
             val scriptEngine = KtsScriptEngineFactory(classPath).scriptEngine
             try {
-                result = scriptEngine.eval(script)
+                result = scriptEngine.eval(cleanedScript)
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }

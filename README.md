@@ -15,7 +15,7 @@ The following script named `example.kts` can be invoked by directly invoking `./
 ```kotlin
 #!kts
 
-//using artifact("com.google.code.gson:gson:2.8.6")
+@file:DependsOn("com.google.code.gson:gson:2.8.6")
 
 import com.google.gson.Gson
 
@@ -30,7 +30,7 @@ Alternatively, invoke `./kts example.kts`.
 Custom repositories may be added like so:
 
 ```kotlin
-//using repository("https://some.repo.com/maven")
+@file:Repository("https://some.repo.com/maven")
 ```
 
 `mavenCentral` is available by default.
