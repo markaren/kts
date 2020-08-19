@@ -11,6 +11,7 @@ import org.eclipse.aether.util.artifact.JavaScopes
 import org.eclipse.aether.util.filter.DependencyFilterUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.io.File
 
 internal object KtsScriptUtil {
 
@@ -85,7 +86,12 @@ internal object KtsScriptUtil {
                 val i1 = line.indexOf("(\"") + 2
                 val i2 = line.indexOf("\")")
                 val repo = line.substring(i1, i2)
-                val repository = RemoteRepository.Builder(repo, "default", repo).build()
+                val repository = if (repo == "mavenLocal") {
+                    val m2 = File(System.getProperty("user.home"), ".m2/repository")
+                    RemoteRepository.Builder(null, "default", m2.toURI().toString()).build()
+                } else {
+                    RemoteRepository.Builder(null, "default", repo).build()
+                }
                 repositories.add(repository)
             }
         }
