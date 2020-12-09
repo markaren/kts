@@ -14,16 +14,16 @@ internal class KtsScriptEngineFactory(private val classpath: List<File>) : Kotli
     override fun getScriptEngine(): ScriptEngine {
         val urlCL = URLClassLoader(arrayOf(), this::class.java.classLoader)
         return KotlinJsr223JvmLocalScriptEngine(
-                this,
-                classpath + urlCL.classPathFromTypicalResourceUrls(),
-                KotlinStandardJsr223ScriptTemplate::class.qualifiedName!!,
-                { ctx, types ->
-                    ScriptArgsWithTypes(
-                            arrayOf(ctx.getBindings(ScriptContext.ENGINE_SCOPE)),
-                            types ?: emptyArray()
-                    )
-                },
-                arrayOf(Bindings::class)
+            this,
+            classpath + urlCL.classPathFromTypicalResourceUrls(),
+            KotlinStandardJsr223ScriptTemplate::class.qualifiedName!!,
+            { ctx, types ->
+                ScriptArgsWithTypes(
+                    arrayOf(ctx.getBindings(ScriptContext.ENGINE_SCOPE)),
+                    types ?: emptyArray()
+                )
+            },
+            arrayOf(Bindings::class)
         )
     }
 }

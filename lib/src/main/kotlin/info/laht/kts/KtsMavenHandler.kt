@@ -27,8 +27,8 @@ internal object KtsMavenHandler {
         locator.setErrorHandler(object : DefaultServiceLocator.ErrorHandler() {
             override fun serviceCreationFailed(type: Class<*>?, impl: Class<*>?, exception: Throwable) {
                 LOG.error(
-                        "Service creation failed for {} with implementation {}",
-                        type, impl, exception
+                    "Service creation failed for {} with implementation {}",
+                    type, impl, exception
                 )
             }
         })
@@ -57,7 +57,7 @@ internal object KtsMavenHandler {
 
     fun defaultRepositories(): List<RemoteRepository> {
         return listOf(
-                newCentralRepository()
+            newCentralRepository()
         )
     }
 

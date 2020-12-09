@@ -11,12 +11,13 @@ internal class ParseDependenciesTest {
         val script = """
             
             @file:DependsOn("com.google.code.gson:gson:2.8.6")
+            @file:DependsOn("no.ntnu.ihb.sspgen:dsl:0.1.3", options="compile,runtime")
             
         """.trimIndent()
 
         val deps = KtsScriptUtil.parseDependencies(script)
 
-        Assertions.assertEquals(1, deps.size)
+        Assertions.assertEquals(2, deps.size)
         Assertions.assertEquals("2.8.6", deps.first().version)
         Assertions.assertEquals("gson", deps.first().artifactId)
         Assertions.assertEquals("com.google.code.gson", deps.first().groupId)

@@ -24,12 +24,15 @@ internal object KtsScriptUtil {
 
         val scriptLines = script.split("\n").toMutableList()
         for ((index, lineNumber) in lines.withIndex()) {
-            scriptLines.removeAt(lineNumber-index)
+            scriptLines.removeAt(lineNumber - index)
         }
         return scriptLines.joinToString("\n")
     }
 
-    internal fun resolveDependencies(repositories: List<RemoteRepository>, deps: Iterable<Artifact>): List<ArtifactResult> {
+    internal fun resolveDependencies(
+        repositories: List<RemoteRepository>,
+        deps: Iterable<Artifact>
+    ): List<ArtifactResult> {
 
         val system = KtsMavenHandler.newRepositorySystem()
         val session = KtsMavenHandler.newRepositorySystemSession(system)
@@ -48,8 +51,8 @@ internal object KtsScriptUtil {
 
             for (artifactResult: ArtifactResult in artifactResults) {
                 LOG.trace(
-                        artifactResult.artifact.toString() + " resolved to "
-                                + artifactResult.artifact.file
+                    artifactResult.artifact.toString() + " resolved to "
+                            + artifactResult.artifact.file
                 )
             }
 
@@ -64,9 +67,10 @@ internal object KtsScriptUtil {
                 break
             }
             if (line.startsWith("@file:DependsOn")) {
-                val i1 = line.indexOf("(\"") + 2
-                val i2 = line.indexOf("\")")
-                val artifact = DefaultArtifact(line.substring(i1, i2))
+                val i1 = line.indexOf("\"") + 1
+                val i2 = line.substring(i1).indexOf("\"")
+                val substr = line.substring(i1, i1+i2)
+                val artifact = DefaultArtifact(substr)
                 artifacts.add(artifact)
             }
         }
