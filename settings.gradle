@@ -2,4 +2,3 @@ rootProject.name = 'kts'
 
 include 'lib'
 include 'cli'
-include 'boot-cli'
