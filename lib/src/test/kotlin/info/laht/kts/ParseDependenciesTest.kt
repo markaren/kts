@@ -11,7 +11,7 @@ internal class ParseDependenciesTest {
         val script = """
             
             @file:DependsOn("com.google.code.gson:gson:2.8.6")
-            @file:DependsOn("no.ntnu.ihb.sspgen:dsl:0.1.3", options="compile,runtime")
+            @file:DependsOn("no.ntnu.ihb.sspgen:dsl:0.4.1", options="compile,runtime")
             
         """.trimIndent()
 

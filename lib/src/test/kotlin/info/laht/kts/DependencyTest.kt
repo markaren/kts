@@ -22,7 +22,7 @@ internal class DependencyTest {
         val system = KtsMavenHandler.newRepositorySystem()
         val session = KtsMavenHandler.newRepositorySystemSession(system)
 
-        val artifact: Artifact = DefaultArtifact("no.ntnu.ihb.sspgen:dsl:0.1.3")
+        val artifact: Artifact = DefaultArtifact("no.ntnu.ihb.sspgen:dsl:0.4.1")
 
         val classpathFilter = DependencyFilterUtils.classpathFilter(JavaScopes.COMPILE)
 
