@@ -5,10 +5,8 @@ plugins {
 }
 
 dependencies {
-    runtimeOnly 'org.jetbrains.kotlin:kotlin-script-runtime'
-    implementation 'org.jetbrains.kotlin:kotlin-script-util'
-    implementation 'org.jetbrains.kotlin:kotlin-compiler-embeddable'
-    implementation 'org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable'
+    runtimeOnly "org.jetbrains.kotlin:kotlin-main-kts"
+    runtimeOnly "org.jetbrains.kotlin:kotlin-scripting-jsr223"
 
     def maven_version = "3.5.0"
     implementation group: 'org.apache.maven', name: 'maven-resolver-provider', version: maven_version

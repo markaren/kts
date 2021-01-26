@@ -1,8 +1,8 @@
 package info.laht.kts
 
-import org.jetbrains.kotlin.com.intellij.util.lang.UrlClassLoader
 import java.io.File
 import java.net.URLClassLoader
+import javax.script.ScriptEngineManager
 
 public object KtsScriptRunner {
 
@@ -41,7 +41,7 @@ public object KtsScriptRunner {
                     cl.toURI().toURL()
                 }.toTypedArray()
             )
-            val scriptEngine = KtsScriptEngineFactory(classPath).scriptEngine
+            val scriptEngine = ScriptEngineManager().getEngineByExtension("main.kts")!!
             try {
                 result = scriptEngine.eval(cleanedScript)
             } catch (ex: Exception) {
