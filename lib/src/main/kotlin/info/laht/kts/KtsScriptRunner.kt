@@ -3,6 +3,7 @@ package info.laht.kts
 import java.io.File
 import java.net.URLClassLoader
 import javax.script.ScriptEngineManager
+import kotlin.concurrent.thread
 
 public object KtsScriptRunner {
 
@@ -35,7 +36,7 @@ public object KtsScriptRunner {
         val cleanedScript = KtsScriptUtil.cleanScript(script)
 
         var result: Any? = null
-        val thread = Thread {
+        val thread = thread(true) {
             Thread.currentThread().contextClassLoader = URLClassLoader(
                 classPath.map { cl ->
                     cl.toURI().toURL()
@@ -48,8 +49,6 @@ public object KtsScriptRunner {
                 ex.printStackTrace()
             }
         }
-
-        thread.start()
 
         if (timeOut == null) {
             thread.join()
