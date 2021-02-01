@@ -2,19 +2,12 @@ package info.laht.kts
 
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.kotlin.mainKts.CompilerOptions
-import kotlin.script.experimental.annotations.KotlinScript
 import kotlin.script.experimental.api.*
 import kotlin.script.experimental.dependencies.*
 import kotlin.script.experimental.dependencies.maven.MavenDependenciesResolver
 import kotlin.script.experimental.jvm.JvmDependency
 import kotlin.script.experimental.jvm.dependenciesFromCurrentContext
 import kotlin.script.experimental.jvm.jvm
-
-@KotlinScript(
-    fileExtension = "main.kts",
-    compilationConfiguration = ScriptWithMavenDepsConfiguration::class
-)
-abstract class ScriptWithMavenDeps
 
 object ScriptWithMavenDepsConfiguration : ScriptCompilationConfiguration(
     {
