@@ -27,7 +27,8 @@ class KtsCLI: Runnable {
 
     override fun run() {
 
-        KtsScriptRunner().eval(scriptFile)?.also { result ->
+        val cacheDir = File(".kts").apply { mkdir() }
+        KtsScriptRunner(cacheDir).eval(scriptFile)?.also { result ->
             println(result) // print non-null invocation results
         }
 
