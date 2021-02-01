@@ -1,4 +1,5 @@
 rootProject.name = 'kts'
 
-include 'lib'
 include 'cli'
+include 'host'
+include 'script'

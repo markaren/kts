@@ -24,7 +24,7 @@ internal class TestScript {
 
         """.trimIndent()
 
-        val result = KtsScriptRunner.invokeKts(script)
+        val result = KtsScriptRunner.eval(script)
         Assertions.assertEquals(listOf(1, 2), result)
 
     }

@@ -5,24 +5,15 @@ plugins {
 }
 
 dependencies {
-    runtimeOnly "org.jetbrains.kotlin:kotlin-main-kts"
-    runtimeOnly "org.jetbrains.kotlin:kotlin-scripting-jsr223"
 
-    def maven_version = "3.5.0"
-    implementation group: 'org.apache.maven', name: 'maven-resolver-provider', version: maven_version
+    implementation project(":script")
 
-    def maven_resolver_version = "1.4.2"
-    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-api', version: maven_resolver_version
-    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-impl', version: maven_resolver_version
-    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-util', version: maven_resolver_version
-    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-transport-http', version: maven_resolver_version
-    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-transport-file', version: maven_resolver_version
-    implementation group: 'org.apache.maven.resolver', name: 'maven-resolver-connector-basic', version: maven_resolver_version
+    implementation("org.jetbrains.kotlin:kotlin-scripting-common")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-jvm")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-jvm-host")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-dependencies")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-dependencies-maven")
 
-}
-
-kotlin {
-    explicitApi()
 }
 
 def generatedSourceDir = new File(buildDir, "generated/src/main/kotlin")
