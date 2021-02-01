@@ -20,7 +20,7 @@ startScripts {
 }
 
 dependencies {
-    implementation project(":lib")
+    implementation project(":host")
     implementation group: 'info.picocli', name: 'picocli', version: '4.5.0'
 }
 

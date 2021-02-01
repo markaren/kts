@@ -1,0 +1,51 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id "com.jfrog.bintray" version "1.8.4" apply(false)
+}
+
+dependencies {
+
+    implementation("org.jetbrains.kotlin:kotlin-scripting-common")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-jvm")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-dependencies")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-dependencies-maven")
+    implementation("org.jetbrains.kotlin:kotlin-main-kts")
+
+}
+
+publishing {
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        archiveClassifier.set('sources')
+        from sourceSets.main.allSource
+    }
+
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+        }
+    }
+
+}
+
+if (hasProperty("bintrayUser") && hasProperty("bintrayKey")) {
+
+    apply plugin: "com.jfrog.bintray"
+
+    bintray {
+        user = bintrayUser
+        key = bintrayKey
+        publish = true
+        publications = ["maven"]
+        pkg {
+            repo = "mvn"
+            name = "kts"
+            websiteUrl = "https://github.com/markaren/kts"
+            vcsUrl = "https://github.com/markaren/kts"
+            licenses = ["MIT"]
+        }
+    }
+
+}
