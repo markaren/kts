@@ -15,6 +15,9 @@ class KtsCLI: Runnable {
     )
     private lateinit var scriptFile: File
 
+    @CommandLine.Option(names = ["--cache"], description = ["Enable compiled script cache"])
+    private var cache = false
+
     @CommandLine.Option(names = ["-h", "--help"], usageHelp = true, description = ["Display a help message"])
     private var helpRequested: Boolean = false
 
@@ -27,8 +30,8 @@ class KtsCLI: Runnable {
 
     override fun run() {
 
-        val cacheDir = File(".kts").apply { mkdir() }
-        KtsScriptRunner(cacheDir).eval(scriptFile)?.also { result ->
+        val cacheDir by lazy { File(".kts").apply { mkdir() } }
+        KtsScriptRunner(if (cache) cacheDir else null).eval(scriptFile)?.also { result ->
             println(result) // print non-null invocation results
         }
 
