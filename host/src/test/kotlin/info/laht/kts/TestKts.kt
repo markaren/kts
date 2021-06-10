@@ -15,10 +15,8 @@ internal class TestKts {
 
         val script = """
             
-            @file:Repository("https://dl.bintray.com/ntnu-ihb/mvn")
-            
             @file:DependsOn("com.google.code.gson:gson:2.8.6")
-            @file:DependsOn("no.ntnu.ihb.sspgen:dsl:0.4.1")
+            @file:DependsOn("info.laht.sspgen:dsl:0.5.1")
             
             import java.util.List
             import com.google.gson.Gson
@@ -26,7 +24,7 @@ internal class TestKts {
             val gson = Gson()
             
             listOf(1,2)
-
+            
         """.trimIndent()
 
 
@@ -40,17 +38,13 @@ internal class TestKts {
 
         val script = """
         
-        @file:Repository("https://dl.bintray.com/laht/mvn")
-        @file:Repository("https://dl.bintray.com/ntnu-ihb/mvn")
-
-        @file:DependsOn("no.ntnu.ihb.vico:core:0.3.3", options = arrayOf("scope=compile,runtime"))
+        @file:DependsOn("info.laht.vico:core:0.4.2", options = arrayOf("scope=compile,runtime"))
 
         @file:CompilerOptions("-jvm-target", "1.8")
 
         import no.ntnu.ihb.vico.components.Transform
         import no.ntnu.ihb.vico.core.EngineBuilder
         import no.ntnu.ihb.vico.render.Geometry
-        import no.ntnu.ihb.vico.render.GeometryRenderer
         import no.ntnu.ihb.vico.render.mesh.BoxMesh
 
         EngineBuilder().build().use { engine ->

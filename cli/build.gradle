@@ -11,7 +11,7 @@ application {
 
 distributions {
     main {
-        baseName('kts')
+        distributionBaseName.set('kts')
     }
 }
 
