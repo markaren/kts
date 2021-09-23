@@ -5,6 +5,22 @@ Kotlin script runner.
 
 Enables Kotlin scripts to be invoked with external maven dependencies and no prior software requirements (except for a JRE).
 
+
+#### JFrog artifactory
+
+Artifacts are available through JFrog artifactory.
+
+```groovy
+repositories {
+    maven { url "https://ais.jfrog.io/artifactory/ais-gradle-dev-local/"} // SNAPSHOTS
+    maven { url "https://ais.jfrog.io/artifactory/ais-gradle-release-local/"} // STABLE
+}
+
+dependencies {
+    implementation "info.laht.kts:host:$version"
+}
+```
+
 ### Example
 
 The following script named `example.kts` can be invoked by directly invoking `./example.kts` in a shell.
@@ -17,7 +33,6 @@ The following script named `example.kts` can be invoked by directly invoking `./
 import com.google.gson.Gson
 
 println(Gson())
-
 ```
 
 Alternatively, invoke `./kts example.kts`.

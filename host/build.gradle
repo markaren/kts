@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
 }
 
-apply from: rootProject.file('gradle/publisher.gradle')
+apply from: rootProject.file('gradle/jfrog.gradle')
 
 dependencies {
 

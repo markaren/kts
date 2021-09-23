@@ -1,0 +1,75 @@
+
+apply plugin: "com.jfrog.artifactory"
+apply plugin: "maven-publish"
+
+task sourceJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+
+            from project.components.java
+            artifact sourceJar
+
+            pom {
+                name = "kts"
+                description = "Kotlin script runner"
+                url = 'https://github.com/markaren/kts'
+
+                scm {
+                    url = 'https://github.com/markaren/kts/tree/master'
+                }
+
+                licenses {
+                    license {
+                        name = 'The MIT License'
+                        url = 'https://opensource.org/licenses/mit-license.php'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'laht'
+                        name = 'Lars Ivar Hatledal'
+                        email = 'larsivarhatledal@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+if (project.hasProperty("artifactory_user") && project.hasProperty("artifactory_password")) {
+
+    artifactory {
+
+        def releasesRepoKey = "ais-gradle-release-local"
+        def snapshotsRepoKey = "ais-gradle-dev-local"
+
+        contextUrl = "https://ais.jfrog.io/artifactory"
+        //The base Artifactory URL if not overridden by the publisher/resolver
+
+        publish {
+            repository {
+                repoKey = project.version.endsWith('SNAPSHOT') ? snapshotsRepoKey : releasesRepoKey
+                username = "${artifactory_user}"
+                password = "${artifactory_password}"
+                maven = true
+            }
+
+            defaults {
+                // Reference to Gradle publications defined in the build script.
+                // This is how we tell the Artifactory Plugin which artifacts should be
+                // published to Artifactory.
+                publications('mavenJava')
+                publishArtifacts = true
+            }
+
+        }
+
+    }
+
+}
